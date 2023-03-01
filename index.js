@@ -69,7 +69,7 @@ app.post('/send-email', (req, res) => {
     let MailOptions= {
         from: process.env.GMAIL,
         to: process.env.MY_EMAIL,
-        subject: "testing nodemailer",
+        subject: `New email from ${name}`,
         text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
     }
     
@@ -80,6 +80,7 @@ app.post('/send-email', (req, res) => {
     
         else {
             console.log("Email Sent")
+            return res.status(200).json({message: "Email Sent"})
         }
     })
 });
