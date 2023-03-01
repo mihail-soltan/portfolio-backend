@@ -32,10 +32,10 @@ app.post('/send-email', (req, res) => {
             user: process.env.MY_EMAIL,
             pass: process.env.EMAIL_PASS,
         },
-        tls: {
-            // do not fail on invalid certs
-            rejectUnauthorized: false,
-        },
+        // tls: {
+        //     // do not fail on invalid certs
+        //     rejectUnauthorized: false,
+        // },
     });
 
     const mailOptions = {
