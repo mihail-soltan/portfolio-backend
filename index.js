@@ -40,7 +40,7 @@ app.post('/send-email', (req, res) => {
 
     const mailOptions = {
         from: process.env.MY_EMAIL,
-        to: process.env.MY_EMAIL,
+        to: process.env.GMAIL,
         subject: 'New Email from Your Website',
         text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
     };
