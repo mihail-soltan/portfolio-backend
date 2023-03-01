@@ -25,7 +25,7 @@ app.post('/send-email', (req, res) => {
     const { name, email, message } = req.body;
 
     let transporter = nodemailer.createTransport({
-        host: "127.0.0.1",
+        host: process.env.HOST,
         port: 1025,
         secure: false, // true for 465, false for other ports
         auth: {
