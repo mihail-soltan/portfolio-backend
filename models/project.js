@@ -6,7 +6,8 @@ const ProjectSchema = new mongoose.Schema(
         source: {required: true, type: String},
         stack: {type: String},
         github: {type: Object},
-        picture: {type: String}
+        picture: {type: String},
+        date: {type: String}
     }
 )
 
