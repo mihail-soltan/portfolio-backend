@@ -26,16 +26,16 @@ app.post('/send-email', (req, res) => {
 
     let transporter = nodemailer.createTransport({
         host: process.env.HOST,
-        port: 1025,
-        secure: false, // true for 465, false for other ports
+        port: process.env.SMTP_PORT,
+        secure: process.env.SECURE, // true for 465, false for other ports
         auth: {
             user: process.env.MY_EMAIL,
             pass: process.env.EMAIL_PASS,
         },
-        // tls: {
-        //     // do not fail on invalid certs
-        //     rejectUnauthorized: false,
-        // },
+        tls: {
+            // do not fail on invalid certs
+            rejectUnauthorized: false,
+        },
     });
 
     const mailOptions = {
