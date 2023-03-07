@@ -24,37 +24,7 @@ app.use("/", projectRouter)
 app.post('/send-email', (req, res) => {
     const { name, email, message } = req.body;
 
-    // let transporter = nodemailer.createTransport({
-    //     host: process.env.HOST,
-    //     port: process.env.SMTP_PORT,
-    //     secure: process.env.SECURE, // true for 465, false for other ports
-    //     auth: {
-    //         user: process.env.MY_EMAIL,
-    //         pass: process.env.EMAIL_PASS,
-    //     },
-    //     tls: {
-    //         // do not fail on invalid certs
-    //         rejectUnauthorized: false,
-    //     },
-    // });
-
-    // const mailOptions = {
-    //     from: process.env.MY_EMAIL,
-    //     to: process.env.GMAIL,
-    //     subject: 'New Email from Your Website',
-    //     text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
-    // };
-
-    // transporter.sendMail(mailOptions, (error, info) => {
-    //     if (error) {
-    //         console.error(error);
-    //         res.status(500).send('Error sending email');
-    //     } else {
-    //         console.log('Email sent: ' + info.response);
-    //         res.send('Email sent successfully');
-    //     }
-    // });
-    let MailTransporter= nodemailer.createTransport({
+    let MailTransporter = nodemailer.createTransport({
 
         service: "gmail",
         auth: {
@@ -65,22 +35,22 @@ app.post('/send-email', (req, res) => {
             rejectUnauthorized: false
         }
     })
-    
-    let MailOptions= {
+
+    let MailOptions = {
         from: process.env.GMAIL,
         to: process.env.MY_EMAIL,
         subject: `New email from ${name}`,
         text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
     }
-    
-    MailTransporter.sendMail(MailOptions, (err)=>{
-        if(err){
+
+    MailTransporter.sendMail(MailOptions, (err) => {
+        if (err) {
             console.log(err.message)
         }
-    
+
         else {
             console.log("Email Sent")
-            return res.status(200).json({message: "Email Sent"})
+            return res.status(200).json({ message: "Email Sent" })
         }
     })
 });
