@@ -3,11 +3,13 @@ import mongoose from 'mongoose';
 const ProjectSchema = new mongoose.Schema(
     {
         title: {required: true, type: String},
+        overview: {required: true, type: String},
+        tags: [{type: String}],
         source: {required: true, type: String},
-        stack: {type: String},
+        stack: [{type: String}],
+        background: {type: String},
         github: {type: Object},
-        picture: {type: String},
-        date: {type: String}
+        pictures: [{type: String}],
     }
 )
 
