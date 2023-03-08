@@ -18,27 +18,18 @@ export async function getProjects(request, response) {
 export async function createProject(request, response) {
     console.log(request.body)
     // Get the project data from the request body
-    if (!request.files || request.files.length !== 2) {
+    if (!request.files || request.files.length !== 3) {
         // Handle error when the file was not uploaded correctly
         return response.status(400).send({ message: 'File not uploaded correctly' });
     }
 
     const { title, overview, tags, source, stack, background, github } = request.body;
-    const files = [
-        {
-            buffer: request.files[0].buffer,
-            originalname: request.files[0].originalname,
-        },
-        {
-            buffer: request.files[1].buffer,
-            originalname: request.files[1].originalname,
-        }
-    ]
+
+    const reqFiles = Array.from(request.files);
 
     // Set up the S3 upload parameters
     const s3Params = {
         Bucket: process.env.S3_BUCKET_NAME,
-        ContentType: 'image/jpeg',
         ACL: 'bucket-owner-full-control', // Make the object publicly readable
     };
     try {
@@ -55,10 +46,10 @@ export async function createProject(request, response) {
 
         // for of loop allows us to use the await keyword to wait for each 
         // upload to complete before moving on to the next one. 
-        for (const file of files) {
+        for (const file of reqFiles) {
             s3Params.Key = file.originalname;
             s3Params.Body = file.buffer;
-
+            s3Params.ContentType = file.mimetype;
 
             // Upload the image to S3
             const s3Data = await s3.upload(s3Params).promise();

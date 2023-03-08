@@ -18,6 +18,6 @@ projectRouter
     .route("/")
     .get(getProjects)
     // .post(upload.single('image'),createProject)
-    .post(upload.array('images', 2), createProject)
+    .post(upload.array('images', 3), createProject)
 
 export default projectRouter
