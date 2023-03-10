@@ -1,6 +1,6 @@
 import Router from 'express';
 import multer from 'multer';
-import { getProjects, createProject } from '../controllers/projects.js';
+import { getProjects, getProjectById, createProject } from '../controllers/projects.js';
 
 const storage = multer.memoryStorage();
 const fileFilter = (req, file, cb) => {
@@ -19,5 +19,9 @@ projectRouter
     .get(getProjects)
     // .post(upload.single('image'),createProject)
     .post(upload.array('images', 3), createProject)
+
+projectRouter
+    .route("/:id")
+    .get(getProjectById)
 
 export default projectRouter

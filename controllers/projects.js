@@ -15,6 +15,17 @@ export async function getProjects(request, response) {
     }
 }
 
+
+export async function getProjectById(request, response) {
+    try {
+        const result = await Project.findById(request.params.id)
+        response.json(result)
+    }
+    catch (err) {
+        response.status(500).json({ message: err.message })
+    }
+}
+
 export async function createProject(request, response) {
     console.log(request.body)
     // Get the project data from the request body
